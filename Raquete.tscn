@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnpg2m7pabl6w"]
+
+[ext_resource type="Script" path="res://Raquete.gd" id="1_ggdwr"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b11y5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3y1ms"]
+size = Vector2(22, 182)
+
+[node name="Raquete" type="CharacterBody2D"]
+position = Vector2(50, 175)
+script = ExtResource("1_ggdwr")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(-22.888, 182.386)
+texture = SubResource("PlaceholderTexture2D_b11y5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3y1ms")

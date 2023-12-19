@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxj60hk7byqa0"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_awadi"]
+[ext_resource type="PackedScene" uid="uid://bnpg2m7pabl6w" path="res://Raquete.tscn" id="1_g5wyv"]
+[ext_resource type="PackedScene" uid="uid://d3jqyryrc61hy" path="res://Bola.tscn" id="2_cvsn7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lh3sy"]
+size = Vector2(1169, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwjps"]
+size = Vector2(16, 339.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s66p0"]
+size = Vector2(713, 10)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_awadi")
+
+[node name="Cima" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cima"]
+position = Vector2(411, -6)
+shape = SubResource("RectangleShape2D_lh3sy")
+
+[node name="Baixo" type="Area2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Baixo"]
+position = Vector2(407, 357)
+shape = SubResource("RectangleShape2D_lh3sy")
+
+[node name="Esquerda" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Esquerda"]
+position = Vector2(-3, 176.25)
+shape = SubResource("RectangleShape2D_nwjps")
+
+[node name="Direita" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direita"]
+position = Vector2(703, 175.5)
+shape = SubResource("RectangleShape2D_nwjps")
+
+[node name="Raquete Esq" parent="." instance=ExtResource("1_g5wyv")]
+
+[node name="Raquete Dir" parent="." instance=ExtResource("1_g5wyv")]
+position = Vector2(650, 175)
+player = "player2"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(357, 355)
+shape = SubResource("RectangleShape2D_s66p0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(346.5, -5)
+shape = SubResource("RectangleShape2D_s66p0")
+
+[node name="Bola" parent="." instance=ExtResource("2_cvsn7")]
+
+[node name="Pontos Esq" type="Label" parent="."]
+offset_right = 82.0
+offset_bottom = 62.0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Pontos Dir" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 628.0
+offset_top = 4.0
+offset_right = 693.0
+offset_bottom = 49.0
+grow_horizontal = 0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_group_ = true
+
+[connection signal="area_entered" from="Cima" to="Bola" method="_on_cima_area_entered"]
+[connection signal="area_entered" from="Baixo" to="Bola" method="_on_baixo_area_entered"]
+[connection signal="area_entered" from="Esquerda" to="." method="_on_esquerda_area_entered"]
+[connection signal="area_entered" from="Esquerda" to="Bola" method="_on_esquerda_area_entered"]
+[connection signal="area_entered" from="Direita" to="Bola" method="_on_direita_area_entered"]
+[connection signal="body_entered" from="Bola" to="Bola" method="_on_body_entered"]
+[connection signal="pontoDir" from="Bola" to="." method="_on_bola_ponto_dir"]
+[connection signal="pontoEsq" from="Bola" to="." method="_on_bola_ponto_esq"]
